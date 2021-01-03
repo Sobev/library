@@ -57,4 +57,8 @@ public class BorrowBookService {
         aob.add(borrowBookDao.getTodayBack().toString());
         return aob;
     }
+    public List<List<?>> pro(Integer id)
+    {
+        return borrowBookDao.procedure(id);
+    }
 }

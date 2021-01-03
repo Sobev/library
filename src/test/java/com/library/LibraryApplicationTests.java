@@ -1,9 +1,14 @@
 package com.library;
 
+import com.library.dao.BorrowBookDao;
 import com.library.entities.Book;
+import com.library.service.BorrowBookService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
+import java.util.List;
 import java.util.Random;
 
 @SpringBootTest
@@ -41,6 +46,13 @@ class LibraryApplicationTests {
             sb.append(randomStr);
         }
         return sb.toString();
+    }
+    @Test
+    public void pro()
+    {
+        BorrowBookService service = new BorrowBookService();
+        List<List<?>> list = service.pro(101);
+        System.out.println(list.size());
     }
 
 }

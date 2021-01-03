@@ -31,4 +31,6 @@ public interface BorrowBookDao {
     //get recent borrow book num
     List<BorrowNum> borrowNum();
 
+    List<List<?>> procedure(Integer id);
+
 }
