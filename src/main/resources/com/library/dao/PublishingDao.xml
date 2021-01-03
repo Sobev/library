@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.dao.PublishingDao">
+    <insert id="save" parameterType="com.library.entities.Publishing">
+        insert into publishing(
+        id,email,name,phone,location,place
+        )values(
+        #{id},#{email},#{name},#{phone},#{location},#{place}
+        )
+    </insert>
+    <delete id="delete" parameterType="String">
+        delete from publishing where id=#{id}
+    </delete>
+    <update id="alter" parameterType="com.library.entities.Publishing">
+        update publishing
+        set email=#{email},name=#{name},phone=#{phone},location=#{location},place=#{place}
+        where id=#{id}
+
+    </update>
+    <select id="getAll" resultType="com.library.entities.Publishing">
+        select * from publishing
+    </select>
+    <select id="getById" parameterType="String" resultType="com.library.entities.Publishing">
+        select * from publishing where id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.dao.BookDao">
+    <select id="findByClick" resultType="com.library.entities.Book">
+        select * from book limit #{start},#{end}
+    </select>
+    <insert id="AddBook" parameterType="com.library.entities.Book" keyProperty="bookId" useGeneratedKeys="true">
+        insert into book(
+        bookid,id,bookname,author,isbn,classifynum,price,introduction,publishdate
+        )values(
+        #{bookId},#{id},#{bookName},#{author},#{isbn},#{classifyNum},#{price},#{introduction},#{publishDate}
+        )
+    </insert>
+    <select id="editBook" parameterType="Integer" resultType="com.library.entities.Book">
+        select * from book
+        <where>
+            bookid=#{bookId}
+        </where>
+    </select>
+    <delete id="deleteBook" parameterType="Integer">
+        delete from book where bookid=#{bookId}
+    </delete>
+    <select id="bookClassify" resultType="com.library.entities.returndata.ClassifyNum">
+        SELECT count(1) as classifynum from book GROUP BY classifynum
+    </select>
+
+    <select id="getPublisher" resultType="Map">
+        SELECT DISTINCT id, name from publishing
+    </select>
+    <update id="updateBook">
+        update book
+        set
+        id=#{obj.id},bookname=#{obj.bookName}
+        ,author=#{obj.author},isbn=#{obj.isbn},classifynum=#{obj.classifyNum},price=#{obj.price}
+        where bookid=#{bookid}
+    </update>
+    <select id="getById" parameterType="String" resultType="com.library.entities.Book">
+        select * from book where bookid=#{id} or bookname like CONCAT('%',#{id},'%')
+    </select>
+    <select id="findByName" parameterType="String" resultType="com.library.entities.Book">
+        select * from book where bookname like CONCAT('%',#{bookName},'%') or bookid=#{bookName}
+    </select>
+</mapper>

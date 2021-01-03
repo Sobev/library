@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(6)"></div>
+<div style="padding-top: 5rem;padding-bottom: 5rem;">
+    <div class="ui container stackable">
+        <div class="ui divided grid">
+            <div class="fifteen wide column">
+                <!--<div id="bookmain" style="width: 500px;height:300px;margin-left: 300px"></div>-->
+                <div class="ui placeholder segment">
+                    <div class="ui two column stackable center aligned grid">
+                        <div class="ui vertical divider">Or</div>
+                        <div class="middle aligned row">
+                            <div class="column">
+                                <div class="ui icon header">
+                                    <i class="search icon"></i>
+                                    查找图书
+                                </div>
+                                <div class="field">
+                                    <div class="ui search">
+                                        <div class="ui icon input">
+                                            <input class="prompt" type="text" placeholder="Search countries...">
+                                            <button style="background-color: #ffffff00;border: none"><i
+                                                    class="search icon"></i></button>
+                                        </div>
+                                        <div class="results"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="ui icon header">
+                                    <i class="world icon"></i>
+                                    <div id="addNew" class="ui primary button">
+                                        新增出版社
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="ui horizontal divider header">
+                    <i class="tag icon"></i>
+                    Description
+                </h4>
+                <p>PUBLISHING ID EMAIL NAME PHONE LOCATION PLACE...</p>
+                <h4 class="ui horizontal divider header">
+                    <i class="bar chart icon"></i>
+                    Specifications
+                </h4>
+                <div class="ui top attached three item  menu">
+                    <a class="item">PUBLISH</a>
+                </div>
+                <table class="ui attached  table">
+                    <thead>
+                    <th>id</th>
+                    <th>email</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Location</th>
+                    <th>Place</th>
+                    <th>DELETE</th>
+                    <th>ALTER</th>
+                    </thead>
+                    <tbody id="table">
+                    <tr th:each="a:${publish}">
+                        <td th:text="${a.id}"></td>
+                        <td th:text="${a.email}"></td>
+                        <td th:text="${a.name}"></td>
+                        <td th:text="${a.phone}"></td>
+                        <td th:text="${a.location}"></td>
+                        <td th:text="${a.place}"></td>
+                        <td><a th:href="@{/admin/publishing/delete/}+${a.id}">删除</a></td>
+                        <td><a th:href="@{/admin/publishing/edit/}+${a.id}">修改</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="ui bottom attached  segment">
+                    <button id="submitButton" class="fluid ui button">加载更多...</button>
+                </div>
+                <div id="pop" class="dialog">
+                    <form class="ui form">
+                        <div class="field">
+                            <label>ID</label>
+                            <input name="id" type="text">
+                        </div>
+                        <div class="field">
+                            <label>E-mail</label>
+                            <input name="email" type="text">
+                        </div>
+                        <div class="field">
+                            <label>name</label>
+                            <input name="name" type="text">
+                        </div>
+                        <div class="field">
+                            <label>phone</label>
+                            <input name="phone" type="text">
+                        </div>
+                        <div class="field">
+                            <label>location</label>
+                            <input name="location" type="text">
+                        </div>
+                        <div class="field">
+                            <label>place</label>
+                            <input name="place" type="text">
+                        </div>
+                    </form>
+                    <div class="footer">
+                        <button id="cancel" class="cancel">取消</button>
+                        <button id="confirm" class="confirm">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="temp/frags::footer"></div>
+<link rel="stylesheet" th:href="@{/css/publishing.css}">
+<script type="text/javascript" th:src="@{/js/publishing.js}"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(0)"></div>
+<form class="ui form">
+    <h4 class="ui dividing header">ADMIN Information</h4>
+    <div class="field">
+        <div class="fields">
+            <label>ID</label>
+            <div class="four wide field">
+                <input type="text" name="adminid" placeholder="adminid">
+            </div>
+            <div class="three wide field">
+                <select class="ui fluid dropdown" name="status">
+                    <option value="">State</option>
+                    <option value="1">正在值班</option>
+                    <option value="0">休假</option>
+                </select>
+            </div>
+
+            <div class="four wide field">
+                <input type="text" name="email" placeholder="email">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="field">
+        <div class="fields">
+            <div class="six wide field">
+                <input type="text" name="location" placeholder="location">
+            </div>
+            <div class="six wide field">
+                <input type="text" name="phone" placeholder="phone">
+            </div>
+            <div class="four wide field">
+                <input type="text" name="office" placeholder="office">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="four wide field">
+        <!--<input type="text" name="sex" placeholder="sex">-->
+        <select class="ui fluid search dropdown" name="sex">
+            <option value="1">男</option>
+            <option value="0">女</option>
+        </select>
+    </div>
+    <div class="four wide field">
+        <input type="text" name="workId" placeholder="workId">
+    </div>
+    <div class="four wide field">
+        <input type="text" name="pwd" placeholder="pwd">
+    </div>
+    <div class="four wide field">
+        <input type="text" name="age" placeholder="age">
+    </div>
+    <br>
+    <button id="submit" class="ui button" type="button">Submit</button>
+</form>
+<script>
+    $("#submit").click(
+        function () {
+            if ($('.ui.form').form('is valid')) {
+                // form is valid (both email and name)
+                var adata = {
+                    "adminId": $("input[ name='adminid' ]").val(),
+                    "status": $("select[ name='status' ]").val(),
+                    "email": $("input[ name='email' ]").val(),
+                    "location": $("input[ name='location' ]").val(),
+                    "phone": $("input[ name='phone' ]").val(),
+                    "office": $("input[ name='office' ]").val(),
+                    "sex": $("select[ name='sex' ]").val(),
+                    "workId": $("input[ name='workId' ]").val(),
+                    "pwd": $("input[ name='pwd' ]").val(),
+                    "age": $("input[ name='age' ]").val(),
+                }
+                var data = JSON.stringify(adata);
+                console.log(data);
+                $.ajax({
+                    type: "GET",
+                    data: data,
+                    url: "/sbm",
+                    headers: {"Content-Type": "application/json;charset=utf-8"},
+                    success: function (feedback) {
+                        //handleList(data.articleList);
+                        alert(feedback);
+                        console.log(feedback);
+                    },
+                    error: function () {
+                        alert("插入失败")
+                    }
+                });
+            }
+        })
+    $('.ui.form')
+        .form({
+            fields: {
+                adminid: 'number',
+                status: 'empty',
+                email: 'email',
+                location: 'empty',
+                phone: 'empty',
+                office: 'empty',
+                sex: 'empty',
+                workId: 'number',
+                pwd: 'empty',
+                age: 'integer'
+            }
+        });
+</script>
+<div th:replace="temp/frags::footer"></div>
+</body>
+</html>

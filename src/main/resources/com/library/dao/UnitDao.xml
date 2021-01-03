@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.dao.UnitDao">
+    <!-- unitId name nature location remarks phone -->
+    <select id="getAll" resultType="com.library.entities.Unit">
+        select * from unit
+    </select>
+    <insert id="save" parameterType="com.library.entities.Unit">
+        insert into unit (unitid, name, nature ,location, remarks, phone)
+        values (#{unitId},#{name},#{nature},#{location},#{remarks},#{phone})
+    </insert>
+    <delete id="delete" parameterType="String">
+        delete from unit where unitid=#{unitid}
+    </delete>
+    <update id="alter" parameterType="com.library.entities.Unit">
+        update unit set name=#{name},nature=#{nature},location=#{location},remarks=#{remarks},phone=#{phone}
+        where unitid=#{unitId}
+    </update>
+    <select id="getById" parameterType="String" resultType="com.library.entities.Unit">
+        select * from unit where unitid=#{unitId}
+    </select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.dao.BorrowBookDao">
+    <insert id="setBorrowBook" parameterType="com.library.entities.BorrowBook">
+        insert into borrowbook(
+        bookid,cardid,adm_adminid,adminid,outdate,backdate,continuetime,continuedate,outofdate,outmoney)
+        values(
+        #{bookId},#{cardId},#{adm_adminid},#{adminId},#{outDate},#{backDate},
+        #{continueTime},#{continueDate},#{outofDate},#{outMoney}
+        )
+    </insert>
+    <delete id="backBook">
+        delete from borrowbook where bookid=#{bookid} and cardid=#{cardid}
+    </delete>
+    <select id="getArrears" parameterType="String" resultType="Integer">
+        select outmoney from borrowbook where cardid=#{cardId}
+    </select>
+    <select id="getTotalArrears" resultType="Float">
+        SELECT sum(outmoney) from borrowbook
+    </select>
+    <select id="getStatus" parameterType="String" resultType="Integer">
+        select status from reader where cardid=#{cardId}
+    </select>
+    <update id="setStatus">
+        update reader set status=#{status} where cardid=#{cardid}
+    </update>
+    <select id="borrowNum" resultType="com.library.entities.returndata.BorrowNum">
+        select count(1) as num from borrowbook where date_sub(curdate(), INTERVAL 7 DAY)
+        <![CDATA[<=]]> borrowbook.outdate GROUP BY outdate
+    </select>
+    <select id="getTodayOut" resultType="Integer">
+        select count(1) as borrowNum from borrowbook where date_sub(curdate(), INTERVAL 1 DAY)
+        <![CDATA[<=]]> borrowbook.outdate
+    </select>
+    <select id="getTodayBack" resultType="Integer">
+        select count(1) as borrowNum from borrowbook where date_sub(curdate(), INTERVAL 1 DAY)
+        <![CDATA[<=]]> borrowbook.backdate
+    </select>
+</mapper>

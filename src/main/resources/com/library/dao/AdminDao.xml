@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.dao.AdminDao">
+    <select id="findAdmin" parameterType="com.library.entities.usrpwd" resultType="com.library.entities.Admin">
+        select * from admin
+        <where>
+            adminid = #{adminId} and pwd = #{pwd}
+        </where>
+    </select>
+
+    <select id="findAll" resultType="com.library.entities.Admin">
+        select * from admin
+    </select>
+
+    <select id="findAdminByClick" parameterType="Integer" resultType="com.library.entities.Admin">
+        select * from admin limit #{start},#{end}
+    </select>
+    <insert id="AddAdmin" parameterType="com.library.entities.Admin" keyProperty="adminid" useGeneratedKeys="true">
+        insert into admin(
+        adminid,status,email,location,phone,office,sex,workId,pwd,age
+        )
+        values (
+        #{adminId},#{status},#{email},#{location},#{phone},#{office},#{sex},#{workId},#{pwd},#{age}
+        )
+    </insert>
+    <select id="findNum" resultType="Integer">
+        select count(*) from admin
+    </select>
+    <select id="findOnline" resultType="Integer">
+        select count(*) from admin
+        <where>
+            status=1
+        </where>
+    </select>
+    <select id="findStatusActive" resultType="com.library.entities.Admin">
+        select * from admin where status=1
+    </select>
+    <!-- 条件查询-->
+
+</mapper>

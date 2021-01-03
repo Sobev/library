@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(3)"></div>
+<div style="padding-top: 5rem;padding-bottom: 5rem;">
+    <div class="ui container stackable">
+        <div class="ui divided grid">
+            <div class="fifteen wide column">
+                <h4 class="ui horizontal divider header">
+                    <i class="tag icon"></i>
+                    Description
+                </h4>
+                <p>READER ID EMAIL NAME PHONE LOCATION PLACE...</p>
+                <button class="ui primary button" id="addNew">新增读者</button>
+                <h4 class="ui horizontal divider header">
+                    <i class="bar chart icon"></i>
+                    Specifications
+                </h4>
+                <div class="ui top attached three item  menu">
+                    <a class="item">READER</a>
+                </div>
+                <table class="ui attached  table">
+                    <thead>
+                    <th>cardId</th>
+                    <th>email</th>
+                    <th>status</th>
+                    <th>phone</th>
+                    <th>location</th>
+                    <th>age</th>
+                    <th>borrowNum</th>
+                    <th>DELETE</th>
+                    <th>ALTER</th>
+                    </thead>
+                    <tbody id="table">
+                    <tr th:each="a:${reader}">
+                        <td th:text="${a.cardId}"></td>
+                        <td th:text="${a.email}"></td>
+                        <td th:text="${a.status}==0?'可借':'不可借'"></td>
+                        <td th:text="${a.phone}"></td>
+                        <td th:text="${a.location}"></td>
+                        <td th:text="${a.age}"></td>
+                        <td th:text="${a.borrowNum}"></td>
+                        <td><a th:href="@{/admin/reader/delete/}+${a.cardId}">删除</a></td>
+                        <td><a th:href="@{/admin/reader/edit/}+${a.cardId}">修改</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="ui bottom attached  segment">
+                    <button id="submitButton" class="fluid ui button">加载更多...</button>
+                </div>
+                <div id="pop" class="dialog" style="height: 260px">
+                    <form class="ui form">
+                        <div class="field">
+                            <label>readercategoryid</label>
+                            <input name="readercategoryid" type="text">
+                        </div>
+                        <div class="field">
+                            <label>status</label>
+                            <input name="status" type="text">
+                        </div>
+                        <div class="field">
+                            <label>borrowNum</label>
+                            <input name="borrowNum" type="text">
+                        </div>
+                        <div class="field">
+                            <label>phone</label>
+                            <input name="phone" type="text">
+                        </div>
+                    </form>
+                    <div class="footer">
+                        <button id="cancel" class="cancel">取消</button>
+                        <button id="confirm" class="confirm">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="temp/frags::footer"></div>
+<link rel="stylesheet" th:href="@{/css/publishing.css}">
+<script type="text/javascript" th:src="@{/js/reader.js}"></script>
+</body>
+</html>

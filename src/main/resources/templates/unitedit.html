@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(5)"></div>
+<div class="column">
+    <a class="ui blue ribbon label">UNIT DETAILS</a>
+    <div class="field">
+        <div class="fields">
+            <table class="ui definition table">
+                <tbody>
+                <tr style="display: none">
+                    <td></td>
+                    <td th:value="${unit.unitId}" name="id"></td>
+                </tr>
+
+                <tr>
+                    <td class="three wide column">name</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input th:value="${unit.name}" type="text" name="name" placeholder="name">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>nature</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="nature" th:value="${unit.nature}" type="text" placeholder="nature...">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>location</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="location" th:value="${unit.location}" type="text" placeholder="location...">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>remarks</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="remarks" th:value="${unit.remarks}" type="text" placeholder="authority...">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>phone</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="phone" th:value="${unit.phone}" type="text" placeholder="authority...">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+<div class="ui buttons">
+    <button id="cancel" onclick="window.history.go(-1);" class="ui button">Cancel</button>
+    <div class="or"></div>
+    <button id="save" class="ui positive button">Save</button>
+</div>
+
+<div th:replace="temp/frags::footer"></div>
+<script type="text/javascript" th:src="@{/js/unitedit.js}"></script>
+</body>
+</html>

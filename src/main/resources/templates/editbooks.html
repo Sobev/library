@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>editBooks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <!--<link rel="stylesheet" th:href="@{css/books.css}"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(0)"></div>
+<div class="column">
+    <a class="ui blue ribbon label">BOOK DETAILS</a>
+    <div class="field">
+        <div class="fields">
+            <table class="ui definition table">
+                <tbody>
+                <tr style="display: none">
+                    <td></td>
+                    <td th:value="${editBook.bookId}" name="bookId"></td>
+                </tr>
+
+                <tr>
+                    <td class="three wide column">bookName</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input th:value="${editBook.bookName}" type="text" name="bookName" placeholder="bookName">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>出版社</td>
+                    <td>
+                        <select name="publisher" class="ui floating dropdown labeled icon button" id="option">
+                            <option th:data-value="${editBook.id}" th:text="不修改"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>author</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="author" th:value="${editBook.author}" type="text" placeholder="Search...">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>isbn</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="isbn" th:value="${editBook.isbn}" type="text" placeholder="Search...">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>classifyNum</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="classifyNum" th:value="${editBook.classifyNum}" type="text"
+                                   placeholder="Search...">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>price</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="price" th:value="${editBook.price}" type="text" placeholder="Search...">
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+<div class="ui buttons">
+    <button id="cancel" onclick="window.history.go(-1);" class="ui button">Cancel</button>
+    <div class="or"></div>
+    <button id="save" class="ui positive button">Save</button>
+</div>
+<div th:replace="temp/frags::footer"></div>
+<script type="text/javascript" th:src="@{/js/editbooks.js}"></script>
+</body>
+</html>

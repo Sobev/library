@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <!--<link rel="stylesheet" th:href="@{css/books.css}"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(2)"></div>
+<div style="padding-top: 5rem;padding-bottom: 5rem;">
+    <div class="ui container stackable">
+        <div class="ui divided grid">
+            <div class="ten wide column">
+                <div id="bookmain" style="width: 500px;height:300px;margin-left: 0px"></div>
+
+            </div>
+            <div class="six wide column">
+                <div class="console">
+                    <div id="output"
+                         style="overflow:auto;width: 400px;height: 220px;background-color: black;color: white;border-radius: 0%;">
+                        <text name="textarea" cols="50" rows="15">
+                            <span>:</span>
+                        </text>
+                    </div>
+                    <div class="input"
+                         style="width: 400px;height: 40px;background-color:black;color: white;border: none;">
+                        <input id="text" type="text"
+                               style="background-color: black;border: none;color: aliceblue;height: 40px; width:350px; display: inline;">
+                        <button id="sbm"
+                                style="border: none; background-color: blanchedalmond; border-radius: 10%;width: 40px;">
+                            ha
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="ui divided grid">
+            <div class="fifteen wide column">
+                <!--<div id="bookmain" style="width: 500px;height:300px;margin-left: 300px"></div>-->
+                <div class="ui placeholder segment">
+                    <div class="ui two column stackable center aligned grid">
+                        <div class="ui vertical divider">Or</div>
+                        <div class="middle aligned row">
+                            <div class="column">
+                                <div class="ui icon header">
+                                    <i class="search icon"></i>
+                                    查找图书
+                                </div>
+                                <div class="field">
+                                    <div class="ui search">
+                                        <div class="ui icon input">
+                                            <form id="form" action="/admin/book/search" method="post">
+                                                <input name="bookName" class="prompt" type="text"
+                                                       placeholder="Search countries...">
+                                                <button id="findByName"
+                                                        style="background-color: #ffffff00;border: none"><i
+                                                        class="search icon"></i></button>
+                                            </form>
+                                        </div>
+                                        <div class="results"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="ui icon header">
+                                    <i class="world icon"></i>
+                                    <div id="addNew" class="ui primary button">
+                                        新增图书
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="ui horizontal divider header">
+                    <i class="tag icon"></i>
+                    Description
+                </h4>
+                <p>Doggie treats are good for all times of the year. Proven to be eaten by 99.9% of all dogs
+                    worldwide.</p>
+                <h4 class="ui horizontal divider header">
+                    <i class="bar chart icon"></i>
+                    Specifications
+                </h4>
+                <div class="ui top attached three item  menu">
+                    <a class="item">ADMIN</a>
+                </div>
+
+
+                <table class="ui attached  table">
+                    <thead>
+                    <th>BookId</th>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>ClassifyName</th>
+                    <th>Price</th>
+                    <th>Introduction</th>
+                    <th>PublishDate</th>
+                    <th>DELETE</th>
+                    <th>ALTER</th>
+                    </thead>
+                    <tbody id="table">
+                    <tr th:each="a:${b}">
+                        <td th:text="${a.bookId}"></td>
+                        <td th:text="${a.id}"></td>
+                        <td th:text="${a.bookName}"></td>
+                        <td th:text="${a.author}"></td>
+                        <td th:text="${a.isbn}"></td>
+                        <td th:text="${a.classifyNum}"></td>
+                        <td th:text="${a.price}"></td>
+                        <td th:text="${a.introduction}"></td>
+                        <td th:text="${a.publishDate}"></td>
+                        <td><a th:href="@{/admin/book/delete/}+${a.bookId}">删除</a></td>
+                        <td><a id="m" th:href="@{/admin/book/edit/}+${a.bookId}">修改</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="ui bottom attached  segment">
+                    <button id="submitButton" class="fluid ui button">加载更多...</button>
+                </div>
+                <div id="pop" class="dialog" style="display: none">
+                    <form class="ui form">
+                        <div class="field">
+                            <label>bookId</label>
+                            <input name="bookId" type="text">
+                        </div>
+                        <div class="field">
+                            <label>ID</label>
+                            <input name="id" type="text">
+                        </div>
+                        <div class="field">
+                            <label>bookName</label>
+                            <input name="bookName" type="text">
+                        </div>
+                        <div class="field">
+                            <label>author</label>
+                            <input name="author" type="text">
+                        </div>
+                        <div class="field">
+                            <label>isbn</label>
+                            <input name="isbn" type="text">
+                        </div>
+                        <div class="field">
+                            <label>classifyNum</label>
+                            <input name="classifyNum" type="text">
+                        </div>
+                        <div class="field">
+                            <label>price</label>
+                            <input name="price" type="text">
+                        </div>
+                        <div class="field">
+                            <label>introduction</label>
+                            <input name="introduction" type="text">
+                        </div>
+                        <div class="field">
+                            <label>publishDate</label>
+                            <input name="publishDate" type="text">
+                        </div>
+                    </form>
+                    <div class="footer">
+                        <button id="cancel" class="ui inverted primary button">取消</button>
+                        <button id="confirm" class="ui primary button">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="temp/frags::footer"></div>
+<script type="text/javascript" th:src="@{/js/books.js}"></script>
+</body>
+</html>

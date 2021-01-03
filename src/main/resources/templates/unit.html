@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(5)"></div>
+<div style="padding-top: 5rem;padding-bottom: 5rem;">
+    <div class="ui container stackable">
+        <div class="ui divided grid">
+            <div class="fifteen wide column">
+                <h4 class="ui horizontal divider header">
+                    <i class="tag icon"></i>
+                    Description
+                </h4>
+                <p>CATEGORY ID EMAIL NAME PHONE LOCATION PLACE...</p>
+                <button class="ui primary button" id="addNew">新增分类</button>
+                <h4 class="ui horizontal divider header">
+                    <i class="bar chart icon"></i>
+                    Specifications
+                </h4>
+                <div class="ui top attached three item  menu">
+                    <a class="item">CATEGORY</a>
+                </div>
+                <table class="ui attached  table">
+                    <thead>
+                    <th>unitId</th>
+                    <th>name</th>
+                    <th>nature</th>
+                    <th>location</th>
+                    <th>remarks</th>
+                    <th>phone</th>
+                    <th>DELETE</th>
+                    <th>ALTER</th>
+                    </thead>
+                    <tbody id="table">
+                    <tr th:each="a:${unit}">
+                        <td th:text="${a.unitId}"></td>
+                        <td th:text="${a.name}"></td>
+                        <td th:text="${a.nature}"></td>
+                        <td th:text="${a.location}"></td>
+                        <td th:text="${a.remarks}"></td>
+                        <td th:text="${a.phone}"></td>
+                        <td><a th:href="@{/admin/unit/delete/}+${a.unitId}">删除</a></td>
+                        <td><a th:href="@{/admin/unit/edit/}+${a.unitId}">修改</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="ui bottom attached  segment">
+                    <button id="submitButton" class="fluid ui button">加载更多...</button>
+                </div>
+                <div id="pop" class="dialog" style="display: none">
+                    <form class="ui form">
+                        <div class="field">
+                            <label>unitId</label>
+                            <input name="unitId" type="text">
+                        </div>
+                        <div class="field">
+                            <label>name</label>
+                            <input name="name" type="text">
+                        </div>
+                        <div class="field">
+                            <label>nature</label>
+                            <input name="nature" type="text" placeholder="number...">
+                        </div>
+                        <div class="field">
+                            <label>location</label>
+                            <input name="location" type="text">
+                        </div>
+                        <div class="field">
+                            <label>remarks</label>
+                            <input name="remarks" type="text">
+                        </div>
+                        <div class="field">
+                            <label>phone</label>
+                            <input name="phone" type="text">
+                        </div>
+                    </form>
+                    <div class="footer">
+                        <button id="cancel" class="ui inverted primary button">取消</button>
+                        <button id="confirm" class="ui primary button">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="temp/frags::footer"></div>
+<script type="text/javascript" th:src="@{/js/unit.js}"></script>
+</body>
+</html>

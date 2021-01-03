@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(4)"></div>
+<div class="column">
+    <a class="ui blue ribbon label">CATEGORY DETAILS</a>
+    <div class="field">
+        <div class="fields">
+            <table class="ui definition table">
+                <tbody>
+                <tr style="display: none">
+                    <td></td>
+                    <td th:value="${cate.readerCategoryId}" name="id"></td>
+                </tr>
+
+                <tr>
+                    <td class="three wide column">num</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input th:value="${cate.num}" type="text" name="num" placeholder="num">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>borrowDate</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="borrowDate" th:value="${cate.borrowDate}" type="text"
+                                   placeholder="borrowDate...">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>keepDate</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="keepDate" th:value="${cate.keepDate}" type="text" placeholder="keepDate...">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>authority</td>
+                    <td>
+                        <div class="ui corner labeled input">
+                            <input name="authority" th:value="${cate.authority}" type="text" placeholder="authority...">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+<div class="ui buttons">
+    <button id="cancel" onclick="window.history.go(-1);" class="ui button">Cancel</button>
+    <div class="or"></div>
+    <button id="save" class="ui positive button">Save</button>
+</div>
+
+<div th:replace="temp/frags::footer"></div>
+<script type="text/javascript" th:src="@{/js/categoryedit.js}"></script>
+</body>
+</html>

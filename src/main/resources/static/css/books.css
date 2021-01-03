@@ -1,0 +1,121 @@
+.button {
+    border: 0; /* 去除原button边框样式 */
+    background-color: coral;
+    color: #fff;
+    padding: 1em 2em;
+}
+
+.button:hover {
+    background-color: #333;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #f4f4f4;
+    margin: 15% auto;
+    width: 80%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+    animation-name: modalopen;
+    animation-duration: 1s;
+}
+
+.modal-header h2, .modal-footer h3 {
+    margin: 0;
+}
+
+.modal-header {
+    background-color: coral;
+    padding: 15px;
+    color: #fff;
+}
+
+.closeBtn {
+    color: #fff;
+    float: right;
+    font-size: 30px;
+}
+
+.closeBtn:hover, .closeBtn:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 10px 20px;
+}
+
+.modal-footer {
+    color: #fff;
+    background-color: coral;
+    padding: 10px;
+    text-align: center;
+}
+
+@keyframes modalopen {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+.dialog {
+    background-color: rgba(250, 250, 250, 0.84);
+    width: 40%;
+    height: 450px;
+    border-radius: 5px;
+    z-index: 1; /*优先*/
+    text-align: center;
+    /* 实现对浏览器窗口的垂直居中 */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    border: #1b1c1d;
+}
+
+/* 弹出框的提示文字部分 */
+.header {
+    height: 90%;
+    line-height: 60px;
+    margin: 0 auto;
+}
+
+/* 弹出框的两个按钮部分 */
+.footer {
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+}
+
+/* 取消和确认按钮的设置 */
+.confirm, .cancel {
+    outline: none;
+    background-color: white;
+    width: 50%;
+    border-width: 3px;
+}
+
+.confirm {
+    border-width: 1px 0px 0px 1px;
+    border-bottom-right-radius: 5px;
+}
+
+.cancel {
+    border-width: 1px 0px 0px 0px;
+    border-bottom-left-radius: 5px;
+}

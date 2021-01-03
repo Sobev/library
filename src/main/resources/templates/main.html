@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(1)"></div>
+<div style="padding-top: 5rem;padding-bottom: 5rem;">
+    <div class="ui container stackable">
+        <div class="ui divided grid">
+            <div class="ten wide column">
+                <div id="line" style="width: 800px;height:300px;margin-left: 0px"></div>
+            </div>
+        </div>
+        <div class="ui divided grid">
+            <div class="ten wide column">
+                <div class="ui search">
+                    <div class="ui icon input">
+                        <input id="bookId" class="prompt" type="text" placeholder="Search Books..."
+                               style="width: 800px;margin-left: 100px">
+                        <button id="icon" style="background-color: #FFFFFF00"><i class="search icon"></i></button>
+                    </div>
+                    <div class="results"></div>
+                </div>
+                <div id="pop" class="dialog" style="display: none">
+                    <form class="ui form">
+                        <div class="field">
+                            <label>cardId</label>
+                            <input name="cardid" type="text">
+                        </div>
+                        <div class="field">
+                            <label>操作员代码</label>
+                            <input name="adminid" type="text">
+                        </div>
+                        <div class="field">
+                            <label>bookid</label>
+                            <input name="bookid" type="text">
+                        </div>
+                    </form>
+                    <div class="footer">
+                        <button id="cancel" class="cancel ui button">取消</button>
+                        <button id="bookout" class="confirm ui  primary button">借出</button>
+                        <button id="bookback" class="confirm ui  secondary button">归还</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui cards">
+            <div class="card">
+                <div class="content">
+                    <div class="header">欠费总额</div>
+                    <div class="meta">$</div>
+                    <div class="description">
+                        <h2 id="arrears">55.0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="content">
+                    <div class="header">近一星期总共借出</div>
+                    <div class="meta">本</div>
+                    <div class="description">
+                        <h2 id="out">50</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="content">
+                    <div class="header">今日总共归还</div>
+                    <div class="meta">本</div>
+                    <div class="description">
+                        <h2 id="back">20</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 style="padding-left: 300px">在线管理员信息</h1>
+        <div class="ui special cards" id="append">
+        </div>
+        <h1 style="padding-left: 400px">推荐图书</h1>
+        <div class="ui cards">
+            <div class="ui card"
+                 data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
+                <div class="image">
+                    <img src="http://booklibimg.kfzimg.com/data/book_lib_img_v2/user/1/6bfb/6bfbc7745803cab5e617dd92d909dec8_0_1_300_300.jpg">
+                </div>
+                <div class="content">
+                    <div class="header">什么是文化史（第三版）</div>
+                    <div class="description">
+                        文化史的实践已经不限于英语世界，它在欧洲大陆、亚洲、南美洲以及世界上的其他地区也蓬勃发展。关于文化史的研究对象及其研究方法，《什么是文化史》一书提供了关键性的指引。在全新修订的第三版中，杰出的文化史学家彼得·伯克用通俗易懂的表述，再次引导我们进入文化史的过去、现在和将来。
+                    </div>
+                </div>
+                <div class="ui two bottom attached buttons">
+                    <div class="ui button">
+                        <i class="add icon"></i>
+                        喜欢
+                    </div>
+                    <div class="ui primary button">
+                        <i class="play icon"></i>
+                        查看
+                    </div>
+                </div>
+            </div>
+            <div class="ui card"
+                 data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
+                <div class="image">
+                    <img src="http://booklibimg.kfzimg.com/data/book_lib_img_v2/isbn/1/b13c/b13c80ed58681422eedb1fc39b81f275_0_1_300_300.jpg">
+                </div>
+                <div class="content">
+                    <div class="header">远东 朝鲜战争</div>
+                    <div class="description">
+                        　　《远东朝鲜战争》讲述了一个完整的主权国家，就这样被一个从来没有到过朝鲜的年轻的美国参谋在三十分钟的时间里，分割成了两半。就在前一天夜里，在战争西线清川江前线作战的中国军队事先没有任何预兆地突然消失了。自出国以来便在生死中搏斗的第三十八军的士兵们，脸上烟火斑驳，身上衣衫褴褛，他们围着这台收音机站在硝烟缭绕的公路上一动不动。那座使美军陆战一师无路可绕的桥，叫做水门桥。中国人民志愿军第一一六师三四七团七连司号员郑起于1951年9月30日收到一张红色请柬，上面写
+                    </div>
+                </div>
+                <div class="ui two bottom attached buttons">
+                    <div class="ui button">
+                        <i class="add icon"></i>
+                        喜欢
+                    </div>
+                    <div class="ui primary button">
+                        <i class="play icon"></i>
+                        查看
+                    </div>
+                </div>
+            </div>
+            <div class="ui card"
+                 data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
+                <div class="image">
+                    <img src="http://booklibimg.kfzimg.com/data/book_lib_img_v2/isbn/1/53a6/53a6ab4cb38a8ceb9f4bcaca86ec2718_0_1_300_300.jpg">
+                </div>
+                <div class="content">
+                    <div class="header">布局天下：中国古代军事地理大势</div>
+                    <div class="description">
+                        　放在读者面前的这本书《布局天下——中国古代军事地理大势》，是一本历史军事地理著作。什么是历史军事地理?著名历史地理学家谭其骧先生认为："军事地理学研究军事与地理条件之间的关系，是人文地理的一个分支，也是军事科学的一个组成部分；其研究成果对指导军事行动具有重要意义。了解古代的军事地理是更好地认识当代军事地理的重要条件，因此，历史军事地理又是历史地理学，也是军事地理学中不可或缺的一部分篇章。"(史念海《河山集·四集·谭其骧教授序》)饶胜文同志的这本书所论，是关于中国古代军事地理大势，虽然不是对古代军事地理
+                    </div>
+                </div>
+                <div class="ui two bottom attached buttons">
+                    <div class="ui button">
+                        <i class="add icon"></i>
+                        喜欢
+                    </div>
+                    <div class="ui primary button">
+                        <i class="play icon"></i>
+                        查看
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br> <br> <br> <br>
+<div th:replace="temp/frags::footer"></div>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+</html>

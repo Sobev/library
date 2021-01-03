@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div th:replace="temp/frags::navigator(0)"></div>
+<div style="padding-top: 5rem;padding-bottom: 5rem;">
+    <div class="ui container stackable">
+        <div class="ui divided grid">
+            <div class="fifteen wide column">
+                <div id="main" style="width: 500px;height:300px;"></div>
+                <script type="text/javascript" th:src="@{js/echarts.js}"></script>
+                <h4 class="ui horizontal divider header">
+                    <i class="tag icon"></i>
+                    Description
+                </h4>
+                <p>Doggie treats are good for all times of the year. Proven to be eaten by 99.9% of all dogs
+                    worldwide.</p>
+                <h4 class="ui horizontal divider header">
+                    <i class="bar chart icon"></i>
+                    Specifications
+                </h4>
+                <div class="ui top attached three item inverted menu">
+                    <a class="item">ADMIN</a>
+                </div>
+                <table class="ui attached inverted table">
+                    <thead>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    </thead>
+                    <tbody id="table">
+                    <tr th:each="a:${admin}">
+                        <td th:text="${a.adminId}"></td>
+                        <td th:text="${a.status}"></td>
+                        <td th:text="${a.email}"></td>
+                        <td th:text="${a.location}"></td>
+                        <td th:text="${a.phone}"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="ui bottom attached inverted segment">
+                    <button id="submit" class="fluid ui button">加载更多...</button>
+                </div>
+                <div id="All">
+
+                </div>
+            </div>
+            <div class="one wide column" style="position:fixed; bottom: 80px; right: 200px;">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="temp/frags::footer"></div>
+<script>
+    var count = 1;
+
+    function setPageInfo(result) {
+        var text = '';
+        text += '<tr>'
+        text += '<td>' + result.adminId + '</td>'
+        text += '<td>' + result.status + '</td> '
+        text += '<td>' + result.email + '</td> '
+        text += '<td>' + result.location + '</td>'
+        text += '<td>' + result.phone + '</td>'
+        text += '<td>' + result.office + '</td>'
+        text += '<td>' + result.sex + '</td>'
+        text += '<td>' + result.workId + '</td>'
+        text += '<td>' + result.pwd + '</td>'
+        text += '<td>' + result.age + '</td>'
+        text += '</tr>'
+        console.log($('#All'))
+        $('#table').append(text);
+    }
+
+    $("#submit").click(
+        function () {
+            $.ajax({
+                type: "POST",
+                url: "/getAdminsByClick?count=" + count,
+                headers: {"Content-Type": "application/json;charset=utf-8"},
+                dataType: "json",
+                success: function (data) {
+                    console.log(count);
+                    if (data != null) {
+                        count = count + 1;
+                        console.log(data)
+                        for (var i = 0; i < data.length; i++) {
+                            setPageInfo(data[i]);
+                        }
+                    }
+                },
+                error: function () {
+                    console.log(adata);
+                    alert("error")
+                }
+            })
+        })
+</script>
+</body>
+</html>

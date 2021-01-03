@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.dao.ReaderCategoryDao">
+    <select id="getAll" resultType="com.library.entities.ReaderCategory">
+        select * from readercategory
+    </select>
+    <insert id="save" parameterType="com.library.entities.ReaderCategory">
+        insert into readercategory(readercategoryid,num,borrowdate,keepdate,authority)
+        values (#{readerCategoryId},#{num},#{borrowDate},#{keepDate},#{authority})
+    </insert>
+    <delete id="delete" parameterType="String">
+        delete from readercategory where readercategoryid=#{id}
+    </delete>
+    <update id="alter" parameterType="com.library.entities.ReaderCategory">
+        update readercategory set num=#{num},borrowdate=#{borrowDate},keepdate=#{keepDate},authority=#{authority}
+        where readercategoryid=#{readerCategoryId}
+    </update>
+    <select id="getByCId" parameterType="String" resultType="com.library.entities.ReaderCategory">
+        select * from readercategory where readercategoryid=#{readerCategoryId}
+    </select>
+</mapper>
