@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 03/01/2021 21:55:11
+ Date: 04/01/2021 15:44:14
 */
 
 SET NAMES utf8mb4;
@@ -160,6 +160,65 @@ CREATE TABLE `unit`  (
   PRIMARY KEY (`unitid`) USING BTREE,
   INDEX `FK_belongunit`(`unitid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- View structure for reader_borrow
+-- ----------------------------
+DROP VIEW IF EXISTS `reader_borrow`;
+CREATE SQL SECURITY DEFINER VIEW `reader_borrow` AS select "borrowbook"."outdate" AS "outdate","reader"."cardid" AS "cardid","reader"."email" AS "email","reader"."phone" AS "phone","borrowbook"."bookid" AS "bookid" from ("borrowbook" join "reader") where (("borrowbook"."cardid" = "reader"."cardid") and ("borrowbook"."outmoney" > 0));
+
+-- ----------------------------
+-- Procedure structure for back
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `back`;
+delimiter ;;
+CREATE PROCEDURE `back`(IN card VARCHAR(40))
+BEGIN
+	DECLARE num_canborrow INT;
+	SELECT borrownum FROM reader WHERE cardid=card INTO num_canborrow;
+	UPDATE reader SET `status`=0 WHERE cardid=card;
+	UPDATE reader SET borrownum=borrownum+1;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for borrow
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `borrow`;
+delimiter ;;
+CREATE PROCEDURE `borrow`(IN card VARCHAR(40))
+label:BEGIN
+	DECLARE num_canborrow INT;
+	SELECT borrownum FROM reader WHERE cardid=card INTO num_canborrow;
+	IF num_canborrow>0 THEN
+	UPDATE reader SET `status`=1 WHERE cardid=card;
+	UPDATE reader SET borrownum=borrownum-1;
+	
+	ELSEIF num_canborrow<=0 THEN LEAVE label;
+	
+	END IF;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for Pro
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `Pro`;
+delimiter ;;
+CREATE PROCEDURE `Pro`(IN bid VARCHAR(10),OUT active INT)
+BEGIN
+	#SELECT outmoney FROM borrowbook where borrowid=bid;
+	#SELECT sum(outmoney) FROM borrowbook;
+	#select count(1) as num from borrowbook where date_sub(curdate(), INTERVAL 7 DAY)
+        #<= borrowbook.outdate GROUP BY outdate;
+				UPDATE admin set `status`=1 WHERE adminid=bid;
+				SELECT COUNT(1) from admin where `status`=1 INTO active;
+				
+END
+;;
+delimiter ;
 
 -- ----------------------------
 -- Triggers structure for table borrowbook

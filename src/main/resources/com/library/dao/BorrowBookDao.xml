@@ -43,4 +43,9 @@
             call borrow(#{cardId,mode=IN,jdbcType=VARCHAR})
         }
     </select>
+    <select id="backBook_pro" parameterType="String" statementType="CALLABLE">
+        {
+            call back(#{cardid,mode=IN,jdbcType=VARCHAR})
+        }
+    </select>
 </mapper>

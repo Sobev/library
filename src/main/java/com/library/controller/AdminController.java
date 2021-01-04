@@ -36,13 +36,6 @@ public class AdminController {
         List<Admin> admins = adminService.findAdminByClick(Integer.valueOf(count));
         return admins;
     }
-
-
-    @GetMapping("/admin")
-    public String index() {
-        return "addadmin";
-    }
-
     @RequestMapping("/sbm")
     @ResponseBody
     public String submit(@RequestBody Admin admin) {

@@ -15,6 +15,8 @@ public interface BorrowBookDao {
 
     void backBook(@Param("bookid") String bookId, @Param("cardid") String cardId);
 
+    void backBook_pro(@Param("cardid") String cardId);
+
     Float getArrears(String cardId);
 
     //return total money
@@ -37,4 +39,7 @@ public interface BorrowBookDao {
 
     @Select("SELECT * FROM reader_borrow")
     List<Reader_Borrow> reader_borrow();
+
+    @Select("SELECT borrownum from reader where cardid=#{cardid}")
+    Integer canBorrow(String cardId);
 }

@@ -62,5 +62,11 @@ public class BorrowBookService {
     {
         borrowBookDao.setBorrowBook_pro(borrowBook);
     }
+    public void backBook_pro(String cardId)
+    {
+        borrowBookDao.backBook_pro(cardId);
+    }
     public List<Reader_Borrow> reader_borrow(){return borrowBookDao.reader_borrow();}
+
+    public Integer canBorrow(String cardId){return borrowBookDao.canBorrow(cardId);}
 }

@@ -25,7 +25,8 @@ public class BorrowBookController {
     public JSONObject setBorrowBook(@RequestBody BorrowBook borrowBook) {
         System.out.println(borrowBook.toString());
         JSONObject jo = null;
-        if (service.getStatus(borrowBook.getCardId()) == 1)
+        //if (service.getStatus(borrowBook.getCardId()) == 1)
+        if(service.canBorrow(borrowBook.getCardId())<=0)
             return JSONObject.parseObject(new String("{'data':'borrow fail'}"));
         else {
             borrowBook.setOutDate(new Date());
@@ -43,6 +44,7 @@ public class BorrowBookController {
         System.out.println(borrowBook.toString());
         service.backBook(borrowBook.getBookId(), borrowBook.getCardId());
         service.setStatus(borrowBook.getCardId(), 0);
+        service.backBook_pro(borrowBook.getCardId());
         JSONObject jo = JSONObject.parseObject(new String("{'data':'back success'}"));
         return jo;
     }

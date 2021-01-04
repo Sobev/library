@@ -19,7 +19,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/admin/")
+                .addPathPatterns("/admin/**")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/admin/js")
                 .excludePathPatterns("/admin/css");
