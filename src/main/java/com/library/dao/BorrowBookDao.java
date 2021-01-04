@@ -9,6 +9,8 @@ import java.util.List;
 public interface BorrowBookDao {
     void setBorrowBook(BorrowBook borrowBook);
 
+    void setBorrowBook_pro(BorrowBook borrowBook);
+
     void backBook(@Param("bookid") String bookId, @Param("cardid") String cardId);
 
     Float getArrears(String cardId);
@@ -30,7 +32,5 @@ public interface BorrowBookDao {
 
     //get recent borrow book num
     List<BorrowNum> borrowNum();
-
-    List<List<?>> procedure(Integer id);
 
 }

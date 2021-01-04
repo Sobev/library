@@ -38,7 +38,9 @@
         select count(1) as borrowNum from borrowbook where date_sub(curdate(), INTERVAL 1 DAY)
         <![CDATA[<=]]> borrowbook.backdate
     </select>
-    <select id="procedure" parameterType="Integer" statementType="CALLABLE">
-        CALL Pro(#{bid})
+    <select id="setBorrowBook_pro" parameterType="com.library.entities.BorrowBook" statementType="CALLABLE">
+        {
+            call borrow(#{cardId,mode=IN,jdbcType=VARCHAR})
+        }
     </select>
 </mapper>

@@ -2,10 +2,14 @@ package com.library;
 
 import com.library.dao.BorrowBookDao;
 import com.library.entities.Book;
+import com.library.entities.BorrowBook;
 import com.library.service.BorrowBookService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.util.ApplicationContextTestUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -13,7 +17,8 @@ import java.util.Random;
 
 @SpringBootTest
 class LibraryApplicationTests {
-
+    @Resource
+    BorrowBookDao dao;
     @Test
     void contextLoads() {
     }
@@ -50,9 +55,9 @@ class LibraryApplicationTests {
     @Test
     public void pro()
     {
-        BorrowBookService service = new BorrowBookService();
-        List<List<?>> list = service.pro(101);
-        System.out.println(list.size());
+        dao.setBorrowBook_pro(
+                new BorrowBook(107,"1808","6236","1800",null,null,null,null,null,null,null));
+
     }
 
 }
