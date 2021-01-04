@@ -2,7 +2,9 @@ package com.library.dao;
 
 import com.library.entities.BorrowBook;
 import com.library.entities.returndata.BorrowNum;
+import com.library.entities.returndata.Reader_Borrow;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -33,4 +35,6 @@ public interface BorrowBookDao {
     //get recent borrow book num
     List<BorrowNum> borrowNum();
 
+    @Select("SELECT * FROM reader_borrow")
+    List<Reader_Borrow> reader_borrow();
 }

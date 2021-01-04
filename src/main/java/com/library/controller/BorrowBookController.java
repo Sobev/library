@@ -6,8 +6,10 @@ import com.library.service.BorrowBookService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
@@ -29,6 +31,7 @@ public class BorrowBookController {
             borrowBook.setOutDate(new Date());
             service.setBorrowBook(borrowBook);
             service.setStatus(borrowBook.getCardId(), 1);
+            service.setBorrowBook_pro(borrowBook);
             jo = JSONObject.parseObject(new String("{'data':'borrow success'}"));
             return jo;
         }
@@ -59,5 +62,11 @@ public class BorrowBookController {
     @RequestMapping("/admin/main")
     public String mainMenu() {
         return "main";
+    }
+    @RequestMapping("/admin/book/outofdate")
+    public String listOfOutMoney(Model model)
+    {
+        model.addAttribute("reader_borrow",service.reader_borrow());
+        return "outdate";
     }
 }

@@ -3,6 +3,7 @@ package com.library.service;
 import com.library.dao.BorrowBookDao;
 import com.library.entities.BorrowBook;
 import com.library.entities.returndata.BorrowNum;
+import com.library.entities.returndata.Reader_Borrow;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -61,4 +62,5 @@ public class BorrowBookService {
     {
         borrowBookDao.setBorrowBook_pro(borrowBook);
     }
+    public List<Reader_Borrow> reader_borrow(){return borrowBookDao.reader_borrow();}
 }

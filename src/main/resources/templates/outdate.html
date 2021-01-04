@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+</head>
+<body>
+<table class="ui attached  table">
+    <thead>
+    <th>date</th>
+    <th>cardid</th>
+    <th>email</th>
+    <th>phone</th>
+    <th>bookid</th>
+    </thead>
+    <tbody>
+    <tr th:each="r:${reader_borrow}">
+        <td th:text="${r.outdate}"></td>
+        <td th:text="${r.cardid}"></td>
+        <td th:text="${r.email}"></td>
+        <td th:text="${r.phone}"></td>
+        <td th:text="${r.bookid}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
