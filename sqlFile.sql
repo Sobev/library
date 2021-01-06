@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 04/01/2021 15:44:14
+ Date: 06/01/2021 23:15:11
 */
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ CREATE TABLE `backbook`  (
   `outdate` datetime(0) NULL DEFAULT NULL,
   `backdate` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`backBookid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for book
@@ -94,7 +94,7 @@ CREATE TABLE `borrowbook`  (
   CONSTRAINT `"B"` FOREIGN KEY () REFERENCES `"reader"` () ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `"C"` FOREIGN KEY () REFERENCES `"admin"` () ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `"D"` FOREIGN KEY () REFERENCES `"admin"` () ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 117 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 122 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for publishing
@@ -217,6 +217,34 @@ BEGIN
 				SELECT COUNT(1) from admin where `status`=1 INTO active;
 				
 END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for updateMoney
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `updateMoney`;
+delimiter ;;
+CREATE PROCEDURE `updateMoney`()
+BEGIN
+	#Routine body goes here...
+	UPDATE borrowbook SET outmoney=outmoney+0.5 WHERE borrowid in(
+	select borrowid as id  WHERE datediff(CURRENT_DATE,outdate)>30
+	);
+
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Event structure for event_money_update
+-- ----------------------------
+DROP EVENT IF EXISTS `event_money_update`;
+delimiter ;;
+CREATE EVENT `event_money_update`
+ON SCHEDULE
+EVERY '1' DAY STARTS '2021-01-06 04:00:00'
+DO CALL updateMoney()
 ;;
 delimiter ;
 
